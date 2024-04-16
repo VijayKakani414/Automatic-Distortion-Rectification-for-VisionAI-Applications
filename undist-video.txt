@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+#include <libdistrect.hpp>
+#include <MatlabDataArray.hpp>
+#include <opencv2/opencv.hpp>
+
+//const std::string INPUT_IMAGE = "../../images/Image8_fixed.bmp";
+const std::string INPUT_IMAGE = "../../images/000061.jpg";
+//const std::string INPUT_IMAGE = "../../images/000106.jpg";
+
+int main(int argc, char **argv)
+{
+	distrect::DistortionRectifier dr;
+	dr.setImage(INPUT_IMAGE);
+	distrect::LineSegmentList segments = dr.getLineSegments();
+	std::cout << "found line segments size: " << segments.size() << std::endl;
+
+	distrect::LineSegmentList filteredSegments = dr.filterLineSegments(segments);
+	std::cout << "after filtering: " << filteredSegments.size() << std::endl;
+
+	distrect::LineSegmentList groupSegments = dr.groupLineSegments(filteredSegments);
+	std::cout << "after grouping: " << groupSegments.size() << std::endl;
+
+	distrect::LineSegmentList finalSegments = dr.selectLineSegmentGroups(groupSegments);
+	std::cout << "final size: " << finalSegments.size() << std::endl;
+
+	distrect::camera_props props = dr.getCameraParams(finalSegments);
+
+	std::cout << props.intrinsic_matrix << std::endl;
+	std::cout << props.distortion_params << std::endl;
+
+	VideoCapture cap("distort.mp4"); 
+	while(1)
+	{
+    	Mat frame;
+    	cap >> frame;
+    	if (frame.empty())
+      	break;
+    	cv::Mat frame = dr.undistort(props, 0);
+    	cv::imshow("UNDISTORTED", frame);
+    	char c=(char)waitKey(25);
+    	if(c==27)
+      	break;
+  	}
+	cap.release();
+  	destroyAllWindows();
+	return 0;
+}

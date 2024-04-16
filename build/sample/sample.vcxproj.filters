@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Vijay\Desktop\WA_car Installs\Self-calibs\RadialDistortionRectification\cpp_distortion_rectifier-master\cpp_distortion_rectifier-master\sample\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Vijay\Desktop\WA_car Installs\Self-calibs\RadialDistortionRectification\cpp_distortion_rectifier-master\cpp_distortion_rectifier-master\sample\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{128A33F1-D9E0-3C93-8BD3-CC3B07045161}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
